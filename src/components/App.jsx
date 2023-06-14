@@ -1,4 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 // import { deletContactsValue } from '../redux/contactSlice';
 import Phonebook from './Phonebook';
 import Contacts from './Contacts';
@@ -8,6 +10,8 @@ import {
   fetchContacts,
   deleteContacts,
 } from 'redux/contacts/contactsOperations';
+
+const Layout = lazy(() => import('./Layout/Layout'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -50,13 +54,17 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      <div className="bookcontacts">
-        <h1>PhoneBook</h1>
-        <Phonebook />
-        <h1>Contacts</h1>
-        <Filter />
-        <Contacts onClick={deletName} />
-      </div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <div className="bookcontacts">
+            <h1>PhoneBook</h1>
+            <Phonebook />
+            <h1>Contacts</h1>
+            <Filter />
+            <Contacts onClick={deletName} />
+          </div>
+        </Route>
+      </Routes>
     </div>
   );
 };

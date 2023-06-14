@@ -1,0 +1,9 @@
+.headder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-bottom: 4px solid #95ad9c;
+  padding-left: 15px;
+}
