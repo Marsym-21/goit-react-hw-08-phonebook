@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { filterSlice } from './filterSlice';
+import { userNameSlice } from './userNameSlice';
 // import { contactsReducer } from './contacts/contactsReducer';
 import { contactsSlice } from './contacts/contactsReducer';
 // import { contactSlice } from './contactSlice';
@@ -19,6 +20,7 @@ export const store = configureStore({
   reducer: {
     contacts: contactsSlice.reducer,
     valueFilter: filterSlice.reducer,
+    userName: userNameSlice.reducer,
   },
 
   // middleware(getDefaultMiddleware) {

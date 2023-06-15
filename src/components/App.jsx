@@ -1,17 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Layout } from './Layout/Layout';
+import { Home } from './Pages/Home';
+import { Login } from './Pages/Login';
+import { Register } from './Pages/Register';
 // import { deletContactsValue } from '../redux/contactSlice';
-import Phonebook from './Phonebook';
-import Contacts from './Contacts';
-import Filter from './Filter';
+
 import { useEffect } from 'react';
 import {
   fetchContacts,
-  deleteContacts,
+  // deleteContacts,
 } from 'redux/contacts/contactsOperations';
-
-const Layout = lazy(() => import('./Layout/Layout'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -23,9 +22,9 @@ export const App = () => {
     state => state.contacts.deleteContactFulfilled
   );
 
-  const deletName = evt => {
-    dispatch(deleteContacts(evt.target.id));
-  };
+  // const deletName = evt => {
+  //   dispatch(deleteContacts(evt.target.id));
+  // };
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -56,13 +55,9 @@ export const App = () => {
     >
       <Routes>
         <Route path="/" element={<Layout />}>
-          <div className="bookcontacts">
-            <h1>PhoneBook</h1>
-            <Phonebook />
-            <h1>Contacts</h1>
-            <Filter />
-            <Contacts onClick={deletName} />
-          </div>
+          <Route path="contacts" element={<Home />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
         </Route>
       </Routes>
     </div>
