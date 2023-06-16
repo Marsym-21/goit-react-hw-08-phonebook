@@ -3,6 +3,7 @@ import { filterSlice } from './filterSlice';
 import { userNameSlice } from './userNameSlice';
 // import { contactsReducer } from './contacts/contactsReducer';
 import { contactsSlice } from './contacts/contactsReducer';
+import { usersSlice } from './users/usersReducer';
 // import { contactSlice } from './contactSlice';
 
 // import { persistContactSlice } from './contactSlice';
@@ -21,6 +22,7 @@ export const store = configureStore({
     contacts: contactsSlice.reducer,
     valueFilter: filterSlice.reducer,
     userName: userNameSlice.reducer,
+    users: usersSlice.reducer,
   },
 
   // middleware(getDefaultMiddleware) {

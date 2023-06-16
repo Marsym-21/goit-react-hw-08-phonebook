@@ -1,64 +1,80 @@
 import css from './Pages.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUserName } from 'redux/userNameSlice';
+// import { setUserName } from 'redux/userNameSlice';
+import { createNewUser } from 'redux/users/usersOperations';
 
 export const Register = () => {
-  const [userData, setUserData] = useState({});
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  // const userValue = useSelector(state => state.users.user);
+
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        return setName(value);
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+
+      default:
+        break;
+    }
+  };
 
   const handleSubmitName = evt => {
     evt.preventDefault();
-    const { name, email, password } = evt.target;
-    dispatch(setUserName(name.value));
+    // dispatch(setUserName(name.value));
+    dispatch(
+      createNewUser({
+        name,
+        email,
+        password,
+      })
+    );
 
-    setUserData({
-      name: name.value,
-      email: email.value,
-      password: password.value,
-    });
-
-    name.value = '';
-    email.value = '';
-    password.value = '';
+    setName('');
+    setEmail('');
+    setPassword('');
   };
-
-  console.log(userData);
   return (
     <form className={css.form} onSubmit={handleSubmitName}>
       <label className={css.label}>
         Name
         <input
-          //   value={dataName}
+          value={name}
           className={css.input}
           type="text"
           placeholder="Enter your name"
           name="name"
-          //   onChange={handleChangeName}
+          onChange={handleChange}
           required
         />
       </label>
       <label className={css.label}>
         Email
         <input
-          //   value={number}
+          value={email}
           className={css.input}
           type="email"
           placeholder="Enter your email"
           name="email"
-          //   onChange={handleChangeName}
+          onChange={handleChange}
           required
         />
       </label>
       <label className={css.label}>
         Password
         <input
-          //   value={number}
+          value={password}
           className={css.input}
           type="text"
           placeholder="Enter your password"
           name="password"
-          //   onChange={handleChangeName}
+          onChange={handleChange}
           required
         />
       </label>
