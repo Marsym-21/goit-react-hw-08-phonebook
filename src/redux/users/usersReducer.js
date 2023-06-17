@@ -19,7 +19,7 @@ export const authSlice = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    [logoutUser.fulfilled](state, action) {
+    [logoutUser.fulfilled](state, _) {
       state.isLoggedIn = false;
     },
   },
