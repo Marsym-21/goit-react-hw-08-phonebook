@@ -1,46 +1,61 @@
 import css from './Pages.module.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from 'redux/users/usersOperations';
 
 export const Login = () => {
-  const [userData, setUserData] = useState({});
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+
+      default:
+        break;
+    }
+  };
 
   const handleSubmitName = evt => {
     evt.preventDefault();
-    const { email, password } = evt.target;
+    dispatch(
+      loginUser({
+        email,
+        password,
+      })
+    );
 
-    setUserData({
-      email: email.value,
-      password: password.value,
-    });
-
-    email.value = '';
-    password.value = '';
+    setEmail('');
+    setPassword('');
   };
 
-  console.log(userData);
   return (
     <form className={css.form} onSubmit={handleSubmitName}>
       <label className={css.label}>
         Email
         <input
-          //   value={number}
+          value={email}
           className={css.input}
           type="email"
           placeholder="Enter your email"
           name="email"
-          //   onChange={handleChangeName}
+          onChange={handleChange}
           required
         />
       </label>
       <label className={css.label}>
         Password
         <input
-          //   value={number}
+          value={password}
           className={css.input}
           type="text"
           placeholder="Enter your password"
           name="password"
-          //   onChange={handleChangeName}
+          onChange={handleChange}
           required
         />
       </label>

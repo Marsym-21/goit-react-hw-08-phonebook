@@ -2,7 +2,7 @@ import css from './Pages.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import { setUserName } from 'redux/userNameSlice';
-import { createNewUser } from 'redux/users/usersOperations';
+import { registerNewUser } from 'redux/users/usersOperations';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -29,7 +29,7 @@ export const Register = () => {
     evt.preventDefault();
     // dispatch(setUserName(name.value));
     dispatch(
-      createNewUser({
+      registerNewUser({
         name,
         email,
         password,

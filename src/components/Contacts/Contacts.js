@@ -7,6 +7,7 @@ const Contacts = () => {
   const filterValue = useSelector(state => state.valueFilter);
   const contactsValue = useSelector(state => state.contacts.entities);
   const dispatch = useDispatch();
+  console.log(contactsValue);
 
   const visibleContacts = useMemo(() => {
     const normalizeFilter = filterValue.toLowerCase();
