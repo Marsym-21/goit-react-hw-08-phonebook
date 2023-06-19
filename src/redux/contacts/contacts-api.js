@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://6479b481a455e257fa6398f4.mockapi.io';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 export async function fetchContact() {
   const contacts = await axios.get('/contacts');
@@ -9,7 +9,7 @@ export async function fetchContact() {
 }
 
 export async function addContact(contact) {
-  return fetch('https://6479b481a455e257fa6398f4.mockapi.io/contacts', {
+  return fetch('https://https://connections-api.herokuapp.com/contacts', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(contact),
@@ -28,7 +28,7 @@ export async function addContact(contact) {
 }
 
 export async function deleteContact(id) {
-  return fetch(`https://6479b481a455e257fa6398f4.mockapi.io/contacts/${id}`, {
+  return fetch(`https://connections-api.herokuapp.com/contacts/${id}`, {
     method: 'DELETE',
   })
     .then(res => {

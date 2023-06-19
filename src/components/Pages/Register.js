@@ -1,7 +1,6 @@
 import css from './Pages.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { setUserName } from 'redux/userNameSlice';
 import { registerNewUser } from 'redux/users/usersOperations';
 
 export const Register = () => {
@@ -9,7 +8,6 @@ export const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  // const userValue = useSelector(state => state.users.user);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -27,7 +25,7 @@ export const Register = () => {
 
   const handleSubmitName = evt => {
     evt.preventDefault();
-    // dispatch(setUserName(name.value));
+
     dispatch(
       registerNewUser({
         name,

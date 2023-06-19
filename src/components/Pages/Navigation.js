@@ -3,11 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Navigation = () => {
-  const userloggedin = useSelector(state => state.auth.isLoggedIn);
-
+  const userloggedIn = useSelector(state => state.auth.isLoggedIn);
+  console.log(userloggedIn);
   return (
     <div className={css.nav}>
-      {userloggedin && (
+      {userloggedIn && (
         <NavLink to="/contacts" className={css.link}>
           Contacts
         </NavLink>
