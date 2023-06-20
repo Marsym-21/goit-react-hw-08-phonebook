@@ -1,14 +1,20 @@
 import css from './Pages.module.css';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 
 const Navigation = () => {
   const userloggedIn = useSelector(state => state.auth.isLoggedIn);
-  console.log(userloggedIn);
+  const dispatch = useDispatch();
+
   return (
     <div className={css.nav}>
       {userloggedIn && (
-        <NavLink to="/contacts" className={css.link}>
+        <NavLink
+          to="/contacts"
+          className={css.link}
+          onClick={() => dispatch(fetchContacts())}
+        >
           Contacts
         </NavLink>
       )}
@@ -21,4 +27,5 @@ const Navigation = () => {
     </div>
   );
 };
+
 export default Navigation;

@@ -26,21 +26,21 @@ export const App = () => {
   //   dispatch(deleteContacts(evt.target.id));
   // };
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if (addContactFulfilled) {
-      dispatch(fetchContacts());
-    }
-  }, [dispatch, addContactFulfilled]);
+  // useEffect(() => {
+  //   if (addContactFulfilled) {
+  //     dispatch(fetchContacts());
+  //   }
+  // }, [dispatch, addContactFulfilled]);
 
-  useEffect(() => {
-    if (deleteContactFulfilled) {
-      dispatch(fetchContacts());
-    }
-  }, [dispatch, deleteContactFulfilled]);
+  // useEffect(() => {
+  //   if (deleteContactFulfilled) {
+  //     dispatch(fetchContacts());
+  //   }
+  // }, [dispatch, deleteContactFulfilled]);
 
   return (
     <div

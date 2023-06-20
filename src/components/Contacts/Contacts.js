@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+// import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContacts } from 'redux/contacts/contactsOperations';
 import css from './Contacts.module.css';
@@ -9,28 +9,36 @@ const Contacts = () => {
   const dispatch = useDispatch();
   console.log(contactsValue);
 
-  const visibleContacts = useMemo(() => {
-    const normalizeFilter = filterValue.toLowerCase();
-    return contactsValue.filter(({ name }) =>
-      name.toLowerCase().includes(normalizeFilter)
-    );
-  }, [contactsValue, filterValue]);
+  // const visibleContacts = () => {
+  //   const normalizeFilter = filterValue.toLowerCase();
+  //   if (contactsValue.length > 0) {
+  //     return contactsValue.filter(({ name }) =>
+  //       name.toLowerCase().includes(normalizeFilter)
+  //     );
+  //   } else {
+  //     return;
+  //   }
+  // };
 
   return (
     <ul className={css.list}>
-      {visibleContacts.map(({ id, name, phone }) => (
-        <li className={css.item} key={id}>
-          &#10003; {name}: {phone}
-          <button
-            className={css.contact_btn}
-            type="submit"
-            id={id}
-            onClick={evt => dispatch(deleteContacts(evt.target.id))}
-          >
-            Delet
-          </button>
-        </li>
-      ))}
+      {contactsValue.length > 0 ? (
+        contactsValue.map(({ id, name, phone }) => (
+          <li className={css.item} key={id}>
+            &#10003; {name}: {phone}
+            <button
+              className={css.contact_btn}
+              type="submit"
+              id={id}
+              onClick={evt => dispatch(deleteContacts(evt.target.id))}
+            >
+              Delet
+            </button>
+          </li>
+        ))
+      ) : (
+        <p className={css.item}> Немає доданих контактів</p>
+      )}
     </ul>
   );
 };
