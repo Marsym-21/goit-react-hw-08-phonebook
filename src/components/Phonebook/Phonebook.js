@@ -4,18 +4,18 @@ import css from './Phonebook.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from 'redux/contacts/contactsOperations';
 
-export default function Phonebook({ contacts }) {
-  const [dataName, setName] = useState('');
+export default function Phonebook() {
+  const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
   const contactsValue = useSelector(state => state.contacts.entities);
 
-  const chahgeInputName = evt => {
-    const checkName = evt.currentTarget.value.toLowerCase();
+  const chahgeInputName = name => {
+    const checkName = name.toLowerCase();
     contactsValue.forEach(({ name }) => {
       if (name.toLowerCase() === checkName) {
-        alert(`${evt.currentTarget.value} is already in contacts`);
+        alert(`${name} is already in contacts`);
         return;
       }
     });
@@ -23,10 +23,8 @@ export default function Phonebook({ contacts }) {
 
   const handleSubmitName = evt => {
     evt.preventDefault();
-    const { name, number } = evt.target;
-    const valueName = name.value;
-    const valueNumber = number.value;
-    const checkName = valueName.toLowerCase();
+
+    const checkName = name.toLowerCase();
 
     contactsValue.forEach(({ name }) => {
       if (name.toLowerCase() === checkName) {
@@ -34,26 +32,29 @@ export default function Phonebook({ contacts }) {
         return;
       }
     });
-    const object = { name: valueName, phone: valueNumber };
-    dispatch(addContacts(object));
+
+    dispatch(
+      addContacts({
+        name,
+        number,
+      })
+    );
     setName('');
     setNumber('');
   };
 
-  const handleChangeName = evt => {
-    const { name, value } = evt.target;
+  const handleChangeName = ({ target: { name, value } }) => {
     switch (name) {
       case 'name':
-        setName(value);
-        break;
+        return setName(value);
       case 'number':
-        setNumber(value);
-        break;
+        return setNumber(value);
+
       default:
         break;
     }
 
-    chahgeInputName(evt);
+    chahgeInputName(name);
   };
 
   return (
@@ -61,7 +62,7 @@ export default function Phonebook({ contacts }) {
       <label className={css.label}>
         Name
         <input
-          value={dataName}
+          value={name}
           className={css.input}
           type="text"
           placeholder="Enter full name"

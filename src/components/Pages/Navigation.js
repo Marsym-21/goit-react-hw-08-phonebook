@@ -7,17 +7,18 @@ const Navigation = () => {
   const userloggedIn = useSelector(state => state.auth.isLoggedIn);
   const dispatch = useDispatch();
 
-  return (
+  return userloggedIn ? (
     <div className={css.nav}>
-      {userloggedIn && (
-        <NavLink
-          to="/contacts"
-          className={css.link}
-          onClick={() => dispatch(fetchContacts())}
-        >
-          Contacts
-        </NavLink>
-      )}
+      <NavLink
+        to="/contacts"
+        className={css.link}
+        onClick={() => dispatch(fetchContacts())}
+      >
+        Contacts
+      </NavLink>
+    </div>
+  ) : (
+    <div className={css.nav}>
       <NavLink to="register" className={css.link}>
         Register
       </NavLink>

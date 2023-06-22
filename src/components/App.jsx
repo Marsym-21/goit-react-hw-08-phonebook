@@ -5,12 +5,12 @@ import { Home } from './Pages/Home';
 import { Login } from './Pages/Login';
 import { Register } from './Pages/Register';
 // import { deletContactsValue } from '../redux/contactSlice';
-
 import { useEffect } from 'react';
 import {
   fetchContacts,
   // deleteContacts,
 } from 'redux/contacts/contactsOperations';
+import { fetchCurrentUser } from 'redux/users/usersOperations';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -18,23 +18,31 @@ export const App = () => {
   const addContactFulfilled = useSelector(
     state => state.contacts.addContactFulfilled
   );
-  const deleteContactFulfilled = useSelector(
-    state => state.contacts.deleteContactFulfilled
-  );
+  const userloggedIn = useSelector(state => state.auth.isLoggedIn);
+
+  // const deleteContactFulfilled = useSelector(
+  //   state => state.contacts.deleteContactFulfilled
+  // );
 
   // const deletName = evt => {
   //   dispatch(deleteContacts(evt.target.id));
   // };
 
-  // useEffect(() => {
-  //   dispatch(fetchContacts());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (addContactFulfilled) {
-  //     dispatch(fetchContacts());
-  //   }
-  // }, [dispatch, addContactFulfilled]);
+  useEffect(() => {
+    if (userloggedIn) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, userloggedIn]);
+
+  useEffect(() => {
+    if (addContactFulfilled) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, addContactFulfilled]);
 
   // useEffect(() => {
   //   if (deleteContactFulfilled) {

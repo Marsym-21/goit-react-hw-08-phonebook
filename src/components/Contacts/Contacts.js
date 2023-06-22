@@ -1,10 +1,14 @@
 // import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContacts } from 'redux/contacts/contactsOperations';
+// import { useEffect } from 'react';
+import {
+  deleteContacts,
+  patchContacts,
+} from 'redux/contacts/contactsOperations';
 import css from './Contacts.module.css';
 
 const Contacts = () => {
-  const filterValue = useSelector(state => state.valueFilter);
+  // const filterValue = useSelector(state => state.valueFilter);
   const contactsValue = useSelector(state => state.contacts.entities);
   const dispatch = useDispatch();
   console.log(contactsValue);
@@ -30,14 +34,17 @@ const Contacts = () => {
               className={css.contact_btn}
               type="submit"
               id={id}
-              onClick={evt => dispatch(deleteContacts(evt.target.id))}
+              onClick={
+                (evt => dispatch(deleteContacts(evt.target.id)),
+                evt => dispatch(patchContacts(evt.target.id)))
+              }
             >
               Delet
             </button>
           </li>
         ))
       ) : (
-        <p className={css.item}> Немає доданих контактів</p>
+        <p className={css.item}> No contacts added </p>
       )}
     </ul>
   );

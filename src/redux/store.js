@@ -1,35 +1,39 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { filterSlice } from './filterSlice';
-// import { contactsReducer } from './contacts/contactsReducer';
 import { contactsSlice } from './contacts/contactsReducer';
 import { authSlice } from './users/usersReducer';
-// import { contactSlice } from './contactSlice';
+import storage from 'redux-persist/lib/storage';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
-// import { persistContactSlice } from './contactSlice';
-// import {
-//   persistStore,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from 'redux-persist';
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
 
 export const store = configureStore({
   reducer: {
     contacts: contactsSlice.reducer,
     valueFilter: filterSlice.reducer,
-    auth: authSlice.reducer,
+    auth: persistReducer(authPersistConfig, authSlice.reducer),
   },
 
-  // middleware(getDefaultMiddleware) {
-  //   return getDefaultMiddleware({
-  //     serializableCheck: {
-  //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-  //     },
-  //   });
-  // },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
+  },
 });
 
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);

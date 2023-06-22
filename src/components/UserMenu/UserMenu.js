@@ -2,7 +2,7 @@ import css from './User.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from 'redux/users/usersOperations';
 import { useRef } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function UserMenu() {
   const userloggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -23,7 +23,7 @@ export default function UserMenu() {
     </div>
   ) : (
     <div className={css.nav}>
-      <p className={css.text}>User Name</p>
+      <p className={css.text}>Register or login</p>
     </div>
   );
 }
