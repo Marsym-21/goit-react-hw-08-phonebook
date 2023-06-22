@@ -3,13 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { useEffect } from 'react';
 import {
   deleteContacts,
-  patchContacts,
+  fetchContacts,
 } from 'redux/contacts/contactsOperations';
 import css from './Contacts.module.css';
+import { useEffect } from 'react';
 
 const Contacts = () => {
   // const filterValue = useSelector(state => state.valueFilter);
   const contactsValue = useSelector(state => state.contacts.entities);
+  const deleteContactTrue = useSelector(
+    state => state.contacts.deleteContactFulfilled
+  );
   const dispatch = useDispatch();
   console.log(contactsValue);
 
@@ -24,6 +28,12 @@ const Contacts = () => {
   //   }
   // };
 
+  useEffect(() => {
+    if (deleteContactTrue) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, deleteContactTrue]);
+
   return (
     <ul className={css.list}>
       {contactsValue.length > 0 ? (
@@ -34,10 +44,7 @@ const Contacts = () => {
               className={css.contact_btn}
               type="submit"
               id={id}
-              onClick={
-                (evt => dispatch(deleteContacts(evt.target.id)),
-                evt => dispatch(patchContacts(evt.target.id)))
-              }
+              onClick={evt => dispatch(deleteContacts(evt.target.id))}
             >
               Delet
             </button>
