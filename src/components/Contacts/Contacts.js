@@ -22,17 +22,17 @@ const Contacts = () => {
     }
   }, [dispatch, deleteContactTrue]);
 
-  const visibleContacts = useMemo(() => {
-    const normalizeFilter = filterValue.toLowerCase();
-    return contactsValue.filter(({ name }) =>
-      name.toLowerCase().includes(normalizeFilter)
-    );
-  }, [contactsValue, filterValue]);
+  // const visibleContacts = useMemo(() => {
+  //   const normalizeFilter = filterValue.toLowerCase();
+  //   return contactsValue.filter(({ name }) =>
+  //     name.toLowerCase().includes(normalizeFilter)
+  //   );
+  // }, [contactsValue, filterValue]);
 
   return (
     <ul className={css.list}>
       {contactsValue.length > 0 ? (
-        visibleContacts.map(({ id, name, phone }) => (
+        contactsValue.map(({ id, name, phone }) => (
           <li className={css.item} key={id}>
             &#10003; {name}: {phone}
             <button
