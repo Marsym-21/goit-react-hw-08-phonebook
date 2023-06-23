@@ -65,7 +65,8 @@ export const contactsSlice = createSlice({
       return { ...state, addContactFulfilled: false };
     },
     [addContacts.fulfilled]: (state, action) => {
-      return { ...state, entities: action.payload, addContactFulfilled: true };
+      state.entities.push(action.payload);
+      state.addContactFulfilled = true;
     },
     [addContacts.rejected]: (state, _) => {
       return { ...state, addContactFulfilled: false };

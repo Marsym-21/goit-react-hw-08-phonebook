@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   deleteContacts,
@@ -13,8 +13,6 @@ const Contacts = () => {
     state => state.contacts.deleteContactFulfilled
   );
   const dispatch = useDispatch();
-  console.log(contactsValue);
-  console.log(filterValue);
 
   useEffect(() => {
     if (deleteContactTrue) {
@@ -22,17 +20,19 @@ const Contacts = () => {
     }
   }, [dispatch, deleteContactTrue]);
 
-  // const visibleContacts = useMemo(() => {
-  //   const normalizeFilter = filterValue.toLowerCase();
-  //   return contactsValue.filter(({ name }) =>
-  //     name.toLowerCase().includes(normalizeFilter)
-  //   );
-  // }, [contactsValue, filterValue]);
+  const visibleContacts = () => {
+    const normalizeFilter = filterValue.toLowerCase();
+    return contactsValue.filter(({ name }) =>
+      name.toLowerCase().includes(normalizeFilter)
+    );
+  };
+
+  const visibleContactsArray = visibleContacts();
 
   return (
     <ul className={css.list}>
       {contactsValue.length > 0 ? (
-        contactsValue.map(({ id, name, phone }) => (
+        visibleContactsArray.map(({ id, name, phone }) => (
           <li className={css.item} key={id}>
             &#10003; {name}: {phone}
             <button
