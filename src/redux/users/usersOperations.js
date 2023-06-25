@@ -19,7 +19,8 @@ export const registerNewUser = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
-      return error.message;
+      console.log(error.response.status);
+      return error.response.status;
     }
   }
 );
@@ -30,7 +31,7 @@ export const loginUser = createAsyncThunk('auth/login', async credentials => {
     token.set(data.token);
     return data;
   } catch (error) {
-    return error.message;
+    return error.response.status;
   }
 });
 

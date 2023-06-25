@@ -4,6 +4,8 @@ import { Layout } from './Layout/Layout';
 import { Home } from './Pages/Home';
 import { Login } from './Pages/Login';
 import { Register } from './Pages/Register';
+import { PrivateRoute } from './Pages/PrivateRoute';
+
 // import { deletContactsValue } from '../redux/contactSlice';
 import { useEffect } from 'react';
 import {
@@ -64,8 +66,22 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="contacts" element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
+          <Route
+            path="register"
+            element={
+              <PrivateRoute>
+                <Register />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <PrivateRoute>
+                <Login />
+              </PrivateRoute>
+            }
+          />
         </Route>
       </Routes>
     </div>
