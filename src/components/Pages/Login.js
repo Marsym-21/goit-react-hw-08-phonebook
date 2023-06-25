@@ -1,14 +1,12 @@
 import css from './Pages.module.css';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { loginUser } from 'redux/users/usersOperations';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const userloggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
